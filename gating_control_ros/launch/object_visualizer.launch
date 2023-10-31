@@ -1,0 +1,38 @@
+<launch>
+  <arg name="data_path" default="/home/epan/Rui/datasets/test/"/>
+  <arg name="dataset" default="training"/>
+  <arg name="frame_size" default="101"/>
+  <arg name="current_frame" default="0"/>
+
+  <!-- Object visualizer -->
+  <node pkg="kitti_visualizer" type="object_visualizer_node" name="object_visualizer_node" output="screen" required="true">
+    <param name="data_path" type="str" value="$(arg data_path)" />
+    <param name="dataset" type="str" value="$(arg dataset)" />
+    <param name="frame_size" type="int" value="$(arg frame_size)" />
+    <param name="current_frame" type="int" value="$(arg current_frame)" />
+  </node>
+
+  <!-- Features extracter-->
+  <node pkg="point_cloud_features" type="point_cloud_features" name="point_cloud_features" output="screen" respawn="false">
+    <param name="minimum_points"         type="int"  value="5"/>
+    <param name="number_of_points"       type="bool" value="true"/>
+    <param name="min_distance"           type="bool" value="true"/>
+    <param name="covariance_mat3D"       type="bool" value="true"/>
+    <param name="normalized_MOIT"        type="bool" value="true"/>
+    <param name="slice_feature"          type="bool" value="true"/>
+    <param name="intensity_distribution" type="bool" value="true"/>
+  </node>
+
+  <!-- Online Random Forests-->
+  <node pkg="online_forests_ros" type="online_forests_ros" name="online_forests_ros" output="screen" respawn="false">
+    <param name="conf_file_name" type="string" value="$(find online_forests_ros)/config/orf.conf"/>
+    <param name="mode" type="int" value="1"/>
+    <param name="minimum_samples" type="int" value="1"/>
+    <param name="save_forest" type="bool" value="false"/>
+    <param name="model_file_name" type="string" value="/home/epan/Rui/Feature_Evaluation/train.model"/>
+  </node>
+
+  <!-- Rviz -->
+  <node pkg="rviz" name="rviz" type="rviz" args="-d $(find kitti_visualizer)/rviz/object_visualizer.rviz" />
+
+</launch>
