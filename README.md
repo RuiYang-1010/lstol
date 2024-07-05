@@ -2,7 +2,7 @@
 
 *We are currently finalizing this repository to coincide with the upcoming IROS paper.*
 
-This repository contains the implementation of the Long-Short-Term Online Learning (LSTOL) method proposed in our [IROS 2024](https://iros2024-abudhabi.org/) paper entitled " Preventing Catastrophic Forgetting in Continuous Online Learning for Autonomous Driving".
+This repository contains the implementation of the Long-Short-Term Online Learning (LSTOL) method proposed in our [IROS 2024](https://iros2024-abudhabi.org/) paper entitled **Preventing Catastrophic Forgetting in Continuous Online Learning for Autonomous Driving**.
 
 ## Abstract
 
